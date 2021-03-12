@@ -71,14 +71,10 @@ for page in pages:
     data = scrape_page(page)
     data_list.append(data)
 
-# write all page informations into a csv file
-keys = data_list[0].keys()
-with open('information.csv', 'w', newline='')  as output_file:
-    dict_writer = csv.DictWriter(output_file, keys)
-    dict_writer.writeheader()
-    dict_writer.writerows(data_list)
 
+# # write all page info to Microsot Excel
+# with pd.ExcelWriter('information.xlsx') as ew:
+#     pd.read_csv('information.csv').to_excel(ew, sheet_name='information.csv')
 
-# write all page info to Microsot Excel
-with pd.ExcelWriter('information.xlsx') as ew:
-    pd.read_csv('information.csv').to_excel(ew, sheet_name='information.csv')
+df = pd.DataFrame.from_dict(data_list)
+df.to_excel('information.xlsx')
